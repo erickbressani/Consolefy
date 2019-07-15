@@ -2,21 +2,8 @@
 
 namespace FluentConsoleApplication
 {
-    public class FluentConsole
+    public partial class FluentConsole
     {
-        public FluentConsole Write(string value)
-        {
-            foreach (ConsoleText consoleText in value.GetValuesByColor())
-            {
-                Console.ResetColor();
-
-                if (consoleText.ForegroundColor.HasValue)
-                    Console.ForegroundColor = consoleText.ForegroundColor.Value;
-
-                Console.Write(consoleText.Text);
-            }
-
-            return this;
-        }
+        private ConsoleColor? _currentBackground;
     }
 }
