@@ -1,10 +1,10 @@
 ﻿namespace FluentConsoleApplication
 {
-    internal class ReadResult
+    internal class ReadTextResult
     {
         public string Text { get; }
 
-        internal ReadResult(string text)
+        internal ReadTextResult(string text)
         {
             Text = text;
         }

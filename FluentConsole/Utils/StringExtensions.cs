@@ -1,16 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace FluentConsoleApplication
 {
     internal static class StringExtensions
     {
         internal static bool HasColorTag(this string source)
-        {
-            return Consts.ConsoleColorValues.Any(color => source.Contains(color));
-        }
+            => Consts.ConsoleColorValues.Any(color => source.Contains(color));
 
         internal static IEnumerable<ConsoleText> GetValuesByColor(this string source)
         {

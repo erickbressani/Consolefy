@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace FluentConsoleApplication
 {
     internal static class Consts
     {
-        public static List<string> ConsoleColorValues =>
-            new List<string>
+        public static List<string> ConsoleColorValues
+            => new List<string>
             {
                 "Black",
                 "DarkBlue",

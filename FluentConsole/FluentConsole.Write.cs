@@ -2,42 +2,64 @@
 
 namespace FluentConsoleApplication
 {
-    public partial class FluentConsole
+    public partial class FluentConsole : IFluentConsole
     {
-        public FluentConsole Write(string value)
+        public IFluentConsole Write(object value)
+            => Write(value.ToString());
+
+        public IFluentConsole WriteFormat(string value, params string[] args)
+            => Write(string.Format(value, args));
+
+        public IFluentConsole Write(string value)
         {
             WriteText(value);
             return this;
         }
 
-        public FluentConsole WriteLine(string value)
+        public IFluentConsole WriteLine(object value)
+            => WriteLine(value.ToString());
+
+        public IFluentConsole WriteLineFormat(string value, params string[] args)
+            => WriteLine(string.Format(value, args));
+
+        public IFluentConsole WriteLine(string value)
         {
             WriteText(value, newLine: true);
             return this;
         }
 
-        public FluentConsole WithBackgroundColor(ConsoleColor consoleColor)
+        public IFluentConsole Clear()
         {
-            _currentBackground = consoleColor;
+            Console.Clear();
             return this;
         }
 
         private void WriteText(string value, bool newLine = false)
         {
-            foreach (ConsoleText consoleText in value.GetValuesByColor())
+            if (value.HasColorTag())
             {
-                Console.ResetColor();
+                foreach (ConsoleText consoleText in value.GetValuesByColor())
+                {
+                    Console.ResetColor();
 
-                if (consoleText.ForegroundColor.HasValue)
-                    Console.ForegroundColor = consoleText.ForegroundColor.Value;
+                    if (consoleText.ForegroundColor.HasValue)
+                        Console.ForegroundColor = consoleText.ForegroundColor.Value;
 
-                if (_currentBackground.HasValue)
-                    Console.BackgroundColor = _currentBackground.Value;
+                    if (_currentBackground.HasValue)
+                        Console.BackgroundColor = _currentBackground.Value;
 
+                    if (newLine)
+                        Console.WriteLine(consoleText.Text);
+                    else
+                        Console.Write(consoleText.Text);
+                }
+            }
+            else
+            {
                 if (newLine)
-                    Console.WriteLine(consoleText.Text);
+                    Console.WriteLine(value);
                 else
-                    Console.Write(consoleText.Text);
+                    Console.Write(value);
             }
         }
     }

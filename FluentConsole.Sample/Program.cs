@@ -11,6 +11,7 @@ namespace FluentConsoleApplication.Sample
 
             var dummy = new Dummy { Name = "aaa" };
 
+
             //Console.BackgroundColor = ConsoleColor.Green;
 
             while (true)
@@ -18,13 +19,11 @@ namespace FluentConsoleApplication.Sample
                 new FluentConsole()
                 //.Write(a)
                 .ReadLine()
-                .If("a", _ => dummy.Name = "tiago")
-                .If("b", _ => dummy.Name = "carlohs")
+                .If("a", (result, console) => { dummy.Name = "tiago"; console.WriteLine("Tiago"); })
+                .If("b", (result, console) => dummy.Name = "carlohs")
                 .ElseRetry("retry plz")
                 .WriteLine(dummy.Name);
             }
-            
-            Console.ReadLine();
         }
 
         public class Dummy
