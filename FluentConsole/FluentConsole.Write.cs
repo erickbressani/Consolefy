@@ -2,7 +2,7 @@
 
 namespace FluentConsoleApplication
 {
-    public partial class FluentConsole : IFluentConsole
+    public sealed partial class FluentConsole : IFluentConsole
     {
         public IFluentConsole Write(object value)
             => Write(value.ToString());
@@ -25,12 +25,6 @@ namespace FluentConsoleApplication
         public IFluentConsole WriteLine(string value)
         {
             WriteText(value, newLine: true);
-            return this;
-        }
-
-        public IFluentConsole Clear()
-        {
-            Console.Clear();
             return this;
         }
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace FluentConsoleApplication.Sample
 {
@@ -16,14 +17,30 @@ namespace FluentConsoleApplication.Sample
 
             while (true)
             {
-                new FluentConsole()
-                //.Write(a)
-                .ReadLine()
-                .If("a", (result, console) => { dummy.Name = "tiago"; console.WriteLine("Tiago"); })
-                .If("b", (result, console) => dummy.Name = "carlohs")
-                .ElseRetry("retry plz")
-                .WriteLine(dummy.Name);
+                FluentConsole
+                    .Initialize()
+                    .DoWithLoading(() => test("a"))
+                    .ReadLine()
+                    .If("a", (result, console) => { dummy.Name = "tiago"; console.WriteLine("Tiago"); })
+                    .If("b", (result, console) => dummy.Name = "carlohs")
+                    .ElseRetry("retry plz")
+                    .WriteLine("a")
+                    .WriteLine("b")
+                    .WriteLine("c");
+
+                //FluentConsole
+                //    .Initialize()
+                //    .ReadLine()
+                //    .If("a", (result, console) => { dummy.Name = "tiago"; console.WriteLine("Tiago"); })
+                //    .If("b", (result, console) => dummy.Name = "carlohs")
+                //    .ElseRetry("retry plz")
+                //    .WriteLine(dummy.Name);
             }
+        }
+
+        static void test(string b)
+        {
+            Thread.Sleep(3000);
         }
 
         public class Dummy

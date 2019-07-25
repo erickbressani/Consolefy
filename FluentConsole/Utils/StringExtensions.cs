@@ -43,19 +43,19 @@ namespace FluentConsoleApplication
                     return ConsoleColor.Blue;
                 case "cyan":
                     return ConsoleColor.Cyan;
-                case "darkBlue":
+                case "darkblue":
                     return ConsoleColor.DarkBlue;
-                case "darkCyan":
+                case "darkcyan":
                     return ConsoleColor.DarkCyan;
-                case "darkGray":
+                case "darkgray":
                     return ConsoleColor.DarkGray;
-                case "darkGreen":
+                case "darkgreen":
                     return ConsoleColor.DarkGreen;
-                case "darkMagenta":
+                case "darkmagenta":
                     return ConsoleColor.DarkMagenta;
-                case "darkRed":
+                case "darkred":
                     return ConsoleColor.DarkRed;
-                case "darkYellow":
+                case "darkyellow":
                     return ConsoleColor.DarkYellow;
                 case "gray":
                     return ConsoleColor.Gray;

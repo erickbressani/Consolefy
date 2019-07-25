@@ -2,7 +2,7 @@
 
 namespace FluentConsoleApplication
 {
-    public partial class FluentConsole : IFluentConsole
+    public sealed partial class FluentConsole : IFluentConsole
     {
         private ConsoleColor? _currentBackground;
 
