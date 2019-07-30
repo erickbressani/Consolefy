@@ -8,7 +8,7 @@ namespace FluentConsoleApplication
         internal Action<string, IFluentConsole> Do { get; }
         internal StringComparison StringComparison { get; }
 
-        public PossibleReadTextOutcome(string expectedResult, Action<string, IFluentConsole> @do, StringComparison stringComparison)
+        internal PossibleReadTextOutcome(string expectedResult, Action<string, IFluentConsole> @do, StringComparison stringComparison)
         {
             ExpectedResult = expectedResult;
             Do = @do;

@@ -4,8 +4,8 @@ namespace FluentConsoleApplication
 {
     internal class ConsoleText
     {
-        public string Text { get; }
-        public ConsoleColor? ForegroundColor { get; }
+        internal string Text { get; }
+        internal ConsoleColor? ForegroundColor { get; }
 
         internal ConsoleText(string text, ConsoleColor? consoleColor)
         {

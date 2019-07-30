@@ -7,7 +7,7 @@ namespace FluentConsoleApplication
         internal ConsoleKey ExpectedConsoleKey { get; }
         internal Action<ConsoleKey, IFluentConsole> Do { get; }
 
-        public PossibleReadKeyOutcome(ConsoleKey expectedConsoleKey, Action<ConsoleKey, IFluentConsole> @do)
+        internal PossibleReadKeyOutcome(ConsoleKey expectedConsoleKey, Action<ConsoleKey, IFluentConsole> @do)
         {
             ExpectedConsoleKey = expectedConsoleKey;
             Do = @do;

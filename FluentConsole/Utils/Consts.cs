@@ -4,7 +4,7 @@ namespace FluentConsoleApplication
 {
     internal static class Consts
     {
-        public static List<string> ConsoleColorValues
+        internal static List<string> ConsoleColorValues
             => new List<string>
             {
                 "Black",
