@@ -9,13 +9,15 @@ namespace FluentConsoleApplication.Sample
     {
         private static void Main(string[] args)
         {
+            FluentWay();
+            return;
             while (true)
             {
                 FluentConsole
                 .Initialize()
                 .WriteLine("1. Default Wayt")
                 .WriteLine("2. Fluent")
-                .ReadKeyWithOptions()
+                .ReadKeyLineWithOptions()
                 .If(ConsoleKey.D1, (_, __) => DefaultWay())
                 .If(ConsoleKey.D2, (_, __) => FluentWay())
                 .ElseRetry()

@@ -22,9 +22,13 @@ namespace FluentConsoleApplication
 
         IFluentConsole ReadKey(Action<ConsoleKey, IFluentConsole> @do);
 
+        IFluentConsole ReadKeyLine(Action<ConsoleKey, IFluentConsole> @do);
+
         IReadTextResultWrapper ReadLineWithOptions();
 
         IReadKeyResultWrapper ReadKeyWithOptions();
+
+        IReadKeyResultWrapper ReadKeyLineWithOptions();
 
         IFluentConsole WithBackgroundColor(ConsoleColor consoleColor);
 

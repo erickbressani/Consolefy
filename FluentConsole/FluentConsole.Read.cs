@@ -11,10 +11,17 @@ namespace FluentConsoleApplication
             return this;
         }
 
-        public IFluentConsole ReadKey( Action<ConsoleKey, IFluentConsole> @do)
+        public IFluentConsole ReadKey(Action<ConsoleKey, IFluentConsole> @do)
         {
             ConsoleKey result = Console.ReadKey().Key;
             @do(result, this);
+            return this;
+        }
+
+        public IFluentConsole ReadKeyLine(Action<ConsoleKey, IFluentConsole> @do)
+        {
+            ReadKey(@do);
+            NewEmptyLine();
             return this;
         }
 
@@ -32,6 +39,13 @@ namespace FluentConsoleApplication
             var readResult = new ReadKeyResult(key);
 
             return new ReadKeyResultWrapper(readResult, this);
+        }
+
+        public IReadKeyResultWrapper ReadKeyLineWithOptions()
+        {
+            IReadKeyResultWrapper readKeyResultWrapper = ReadKeyWithOptions();
+            NewEmptyLine();
+            return readKeyResultWrapper;
         }
     }
 }
