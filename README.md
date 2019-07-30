@@ -88,7 +88,7 @@ Simple console application:
 }
 ```
 
-### Fluent Way 
+### Fluent Way using FluentConsole
 
 ```csharp
 {
