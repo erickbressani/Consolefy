@@ -9,25 +9,17 @@ namespace FluentConsoleApplication.Sample
     {
         private static void Main(string[] args)
         {
-            string a = "semcor[color:green]verde[/color]semcor[color:blue]azul [/color] sem cor [invalidtag:]sem cor[/clor] sem cor [color:Cyan]Cyan Cyan[/color] sem cor";//\[.*?\]
-
-            //DefaultWay();
-            FluentWay();
-
             while (true)
             {
-                Console.Beep();
-
-                //FluentConsole
-                //    .Initialize()
-                //    .Beep()
-                //    .ReadLine()
-                //    .If("a", (result, console) => { dummy.Name = "tiago"; console.WriteLine("Tiago"); })
-                //    .If("b", (result, console) => dummy.Name = "carlohs")
-                //    .ElseRetry("retry plz")
-                //    .WriteLine("a")
-                //    .WriteLine("b")
-                //    .WriteLine("c");
+                FluentConsole
+                .Initialize()
+                .WriteLine("1. Default Wayt")
+                .WriteLine("2. Fluent")
+                .ReadKeyWithOptions()
+                .If(ConsoleKey.D1, (_, __) => DefaultWay())
+                .If(ConsoleKey.D2, (_, __) => FluentWay())
+                .ElseRetry()
+                .Clear();
             }
         }
 
