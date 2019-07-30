@@ -16,9 +16,15 @@ namespace FluentConsoleApplication
 
         IFluentConsole WriteLine(string value);
 
-        IReadTextResultWrapper ReadLine();
+        IFluentConsole NewEmptyLine(int repeat = 1);
 
-        IReadKeyResultWrapper ReadKey();
+        IFluentConsole ReadLine(Action<string, IFluentConsole> @do);
+
+        IFluentConsole ReadKey(Action<ConsoleKey, IFluentConsole> @do);
+
+        IReadTextResultWrapper ReadLineWithOptions();
+
+        IReadKeyResultWrapper ReadKeyWithOptions();
 
         IFluentConsole WithBackgroundColor(ConsoleColor consoleColor);
 
@@ -34,7 +40,7 @@ namespace FluentConsoleApplication
 
         IFluentConsole Beep(int frequency, int duration);
 
-        IFluentConsole DoWithLoading(Action action);
+        IFluentConsole Do(Action action);
 
         IFluentConsole DoWithLoading(Action action, string loadingText = "Loading", int tickMilliseconds = 1000);
     }

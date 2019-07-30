@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -46,24 +47,31 @@ namespace FluentConsoleApplication
         private void Loading(string loadingText = "Loading", int tickMilliseconds = 1000)
         {
             _nowLoading = true;
+            NewEmptyLine(repeat: 2);
+
+            int GetCursorTop() 
+                => (Console.CursorTop - 1) < 0 ? 0 : Console.CursorTop - 1;
 
             Task.Run(() =>
             {
                 while (_nowLoading)
                 {
-                    int cursorTop = (Console.CursorTop - 1) < 0 ? 0 : Console.CursorTop - 1;
+                    int cursorTop = GetCursorTop();
 
                     ClearCurrentConsoleLine();
-                    Console.SetCursorPosition(0, cursorTop);
-                    Console.WriteLine(loadingText + ".");
-                    Console.SetCursorPosition(0, cursorTop);
-                    Thread.Sleep(tickMilliseconds);
-                    Console.WriteLine(loadingText + "..");
-                    Console.SetCursorPosition(0, cursorTop);
-                    Thread.Sleep(tickMilliseconds);
-                    Console.WriteLine(loadingText + "...");
-                    Console.SetCursorPosition(0, cursorTop);
-                    Thread.Sleep(tickMilliseconds);
+
+                    for (int index = 0; index < 3; index++)
+                    {
+                        var loading = new StringBuilder();
+                        loading.Append(loadingText);
+
+                        for (int dotIndex = 0; dotIndex <= index; dotIndex++)
+                            loading.Append(".");
+
+                        Console.SetCursorPosition(0, cursorTop);
+                        WriteText(loading.ToString());
+                        Thread.Sleep(tickMilliseconds);
+                    }
                 }
             });
         }

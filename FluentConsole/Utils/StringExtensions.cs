@@ -9,8 +9,10 @@ namespace FluentConsoleApplication
         internal static bool HasColorTag(this string source)
             => Consts.ConsoleColorValues.Any(color => source.Contains(color));
 
-        internal static IEnumerable<ConsoleText> GetValuesByColor(this string source)
+        internal static List<ConsoleText> GetValuesByColor(this string source)
         {
+            var consoleTexts = new List<ConsoleText>();
+
             foreach (string splittedByColorTag in source.Split(new string[] { "[color:" }, StringSplitOptions.None))
             {
                 foreach (string splittedByTagEnding in splittedByColorTag.Split(new string[] { "[/color]" }, StringSplitOptions.None))
@@ -28,9 +30,11 @@ namespace FluentConsoleApplication
                     else
                         text = splittedByTagEnding;
 
-                    yield return new ConsoleText(text, consoleColor);
+                    consoleTexts.Add(new ConsoleText(text, consoleColor));
                 }
             }
+
+            return consoleTexts;
         }
 
         internal static ConsoleColor? ToConsoleColor(this string source)

@@ -4,7 +4,21 @@ namespace FluentConsoleApplication
 {
     public sealed partial class FluentConsole : IFluentConsole
     {
-        public IReadTextResultWrapper ReadLine()
+        public IFluentConsole ReadLine(Action<string, IFluentConsole> @do)
+        {
+            string result = Console.ReadLine();
+            @do(result, this);
+            return this;
+        }
+
+        public IFluentConsole ReadKey( Action<ConsoleKey, IFluentConsole> @do)
+        {
+            ConsoleKey result = Console.ReadKey().Key;
+            @do(result, this);
+            return this;
+        }
+
+        public IReadTextResultWrapper ReadLineWithOptions()
         {
             string readText = Console.ReadLine();
             var readResult = new ReadTextResult(readText);
@@ -12,7 +26,7 @@ namespace FluentConsoleApplication
             return new ReadTextResultWrapper(readResult, this);
         }
 
-        public IReadKeyResultWrapper ReadKey()
+        public IReadKeyResultWrapper ReadKeyWithOptions()
         {
             ConsoleKey key = Console.ReadKey().Key;
             var readResult = new ReadKeyResult(key);

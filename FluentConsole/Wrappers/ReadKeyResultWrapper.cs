@@ -6,22 +6,22 @@ namespace FluentConsoleApplication
     internal class ReadKeyResultWrapper : IReadKeyResultWrapper
     {
         private readonly List<PossibleReadKeyOutcome> _possibleOutcomes;
-        internal ReadKeyResult ReadResult { get; }
-        internal FluentConsole FluentConsole { get; }
+        private readonly ReadKeyResult _readResult;
+        private readonly FluentConsole _fluentConsole;
         private bool _alreadyFoundMatch;
 
         internal ReadKeyResultWrapper(ReadKeyResult readResult, FluentConsole fluentConsole)
         {
-            ReadResult = readResult;
-            FluentConsole = fluentConsole;
             _possibleOutcomes = new List<PossibleReadKeyOutcome>();
+            _readResult = readResult;
+            _fluentConsole = fluentConsole;
         }
 
         public IReadKeyResultWrapper If(ConsoleKey result, Action<ConsoleKey, IFluentConsole> @do)
         {
-            if (ReadResult.ConsoleKey == result)
+            if (_readResult.ConsoleKey == result)
             {
-                @do(ReadResult.ConsoleKey, FluentConsole);
+                @do(_readResult.ConsoleKey, _fluentConsole);
                 _alreadyFoundMatch = true;
             }
 
@@ -33,9 +33,9 @@ namespace FluentConsoleApplication
         public IFluentConsole Else(Action<ConsoleKey, IFluentConsole> @do)
         {
             if (!_alreadyFoundMatch)
-                @do(ReadResult.ConsoleKey, FluentConsole);
+                @do(_readResult.ConsoleKey, _fluentConsole);
 
-            return FluentConsole;
+            return _fluentConsole;
         }
 
         public IFluentConsole ElseRetry(string retryText = "")
@@ -48,12 +48,12 @@ namespace FluentConsoleApplication
 
                 if (possibleOutcome != null)
                 {
-                    possibleOutcome.Do(readKey, FluentConsole);
+                    possibleOutcome.Do(readKey, _fluentConsole);
                     break;
                 }
             }
 
-            return FluentConsole;
+            return _fluentConsole;
         }
     }
 }

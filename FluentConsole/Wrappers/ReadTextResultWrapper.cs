@@ -6,22 +6,22 @@ namespace FluentConsoleApplication
     internal class ReadTextResultWrapper : IReadTextResultWrapper
     {
         private readonly List<PossibleReadTextOutcome> _possibleOutcomes;
-        internal ReadTextResult ReadResult { get; }
-        internal FluentConsole FluentConsole { get; }
+        private readonly ReadTextResult _readResult;
+        private readonly FluentConsole _fluentConsole;
         private bool _alreadyFoundMatch;
 
         internal ReadTextResultWrapper(ReadTextResult readResult, FluentConsole fluentConsole)
         {
-            ReadResult = readResult;
-            FluentConsole = fluentConsole;
             _possibleOutcomes = new List<PossibleReadTextOutcome>();
+            _readResult = readResult;
+            _fluentConsole = fluentConsole;
         }
 
         public IReadTextResultWrapper If(string result, Action<string, IFluentConsole> @do, StringComparison stringComparison = StringComparison.InvariantCultureIgnoreCase)
         {
-            if (result.Equals(ReadResult.Text, stringComparison))
+            if (result.Equals(_readResult.Text, stringComparison))
             {
-                @do(ReadResult.Text, FluentConsole);
+                @do(_readResult.Text, _fluentConsole);
                 _alreadyFoundMatch = true;
             }
 
@@ -33,27 +33,28 @@ namespace FluentConsoleApplication
         public IFluentConsole Else(Action<string, IFluentConsole> @do)
         {
             if (!_alreadyFoundMatch)
-                @do(ReadResult.Text, FluentConsole);
+                @do(_readResult.Text, _fluentConsole);
 
-            return FluentConsole;
+            return _fluentConsole;
         }
 
         public IFluentConsole ElseRetry(string retryText = "")
         {
             while (!_alreadyFoundMatch)
             {
+                _fluentConsole.NewEmptyLine();
                 Console.WriteLine(retryText);
                 string readText = Console.ReadLine();
                 var possibleOutcome = _possibleOutcomes.Find(outcome => outcome.ExpectedResult.Equals(readText, outcome.StringComparison));
 
                 if (possibleOutcome != null)
                 {
-                    possibleOutcome.Do(readText, FluentConsole);
+                    possibleOutcome.Do(readText, _fluentConsole);
                     break;
                 }
             }
 
-            return FluentConsole;
+            return _fluentConsole;
         }
     }
 }

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace FluentConsoleApplication
 {
@@ -28,21 +30,31 @@ namespace FluentConsoleApplication
             return this;
         }
 
+        public IFluentConsole NewEmptyLine(int repeat = 1)
+        {
+            for (int index = 0; index < repeat; index++)
+                Console.WriteLine();
+
+            return this;
+        }
+
         private void WriteText(string value, bool newLine = false)
         {
+            if (_currentBackground.HasValue)
+                Console.BackgroundColor = _currentBackground.Value;
+
             if (value.HasColorTag())
             {
-                foreach (ConsoleText consoleText in value.GetValuesByColor())
+                List<ConsoleText> valuesByColor = value.GetValuesByColor();
+
+                foreach (ConsoleText consoleText in valuesByColor)
                 {
-                    Console.ResetColor();
+                    ResetColor();
 
                     if (consoleText.ForegroundColor.HasValue)
                         Console.ForegroundColor = consoleText.ForegroundColor.Value;
 
-                    if (_currentBackground.HasValue)
-                        Console.BackgroundColor = _currentBackground.Value;
-
-                    if (newLine)
+                    if (newLine && consoleText == valuesByColor.Last())
                         Console.WriteLine(consoleText.Text);
                     else
                         Console.Write(consoleText.Text);

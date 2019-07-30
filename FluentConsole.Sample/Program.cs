@@ -1,51 +1,152 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace FluentConsoleApplication.Sample
 {
     class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             string a = "semcor[color:green]verde[/color]semcor[color:blue]azul [/color] sem cor [invalidtag:]sem cor[/clor] sem cor [color:Cyan]Cyan Cyan[/color] sem cor";//\[.*?\]
 
-            var dummy = new Dummy { Name = "aaa" };
-
-
-            //Console.BackgroundColor = ConsoleColor.Green;
+            //DefaultWay();
+            FluentWay();
 
             while (true)
             {
-                FluentConsole
-                    .Initialize()
-                    .DoWithLoading(() => test("a"))
-                    .ReadLine()
-                    .If("a", (result, console) => { dummy.Name = "tiago"; console.WriteLine("Tiago"); })
-                    .If("b", (result, console) => dummy.Name = "carlohs")
-                    .ElseRetry("retry plz")
-                    .WriteLine("a")
-                    .WriteLine("b")
-                    .WriteLine("c");
+                Console.Beep();
 
                 //FluentConsole
                 //    .Initialize()
+                //    .Beep()
                 //    .ReadLine()
                 //    .If("a", (result, console) => { dummy.Name = "tiago"; console.WriteLine("Tiago"); })
                 //    .If("b", (result, console) => dummy.Name = "carlohs")
                 //    .ElseRetry("retry plz")
-                //    .WriteLine(dummy.Name);
+                //    .WriteLine("a")
+                //    .WriteLine("b")
+                //    .WriteLine("c");
             }
         }
 
-        static void test(string b)
+        private static void DefaultWay()
+        {
+            var character = new Character();
+
+            Console.WriteLine("Welcome to character creation:");
+            Console.Write("Name:");
+            character.Name = Console.ReadLine();
+
+            while (true)
+            {
+                Console.Write("Are you a ");
+                Console.ForegroundColor = ConsoleColor.Blue;
+                Console.Write("(J)edi");
+                Console.ResetColor();
+                Console.Write(" Or a ");
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.Write("(S)ith");
+                Console.ResetColor();
+                Console.WriteLine("?");
+                var key = Console.ReadKey().Key;
+
+                if (key == ConsoleKey.J)
+                {
+                    character.Alignment = Alignment.Jedi;
+                    break;
+                }
+                else if (key == ConsoleKey.S)
+                {
+                    character.Alignment = Alignment.Sith;
+                    break;
+                }
+            }
+
+            if (character.Alignment == Alignment.Jedi)
+                Console.BackgroundColor = ConsoleColor.Blue;
+            else
+                Console.BackgroundColor = ConsoleColor.Red;
+
+            Console.WriteLine();
+            Console.WriteLine();
+
+            bool _nowLoading = true;
+
+            Task.Run(() =>
+            {
+                while (_nowLoading)
+                {
+                    int cursorTop = (Console.CursorTop - 1) < 0 ? 0 : Console.CursorTop - 1;
+
+                    int currentLineCursor = Console.CursorTop;
+                    Console.SetCursorPosition(0, Console.CursorTop);
+
+                    for (int i = 0; i < Console.WindowWidth; i++)
+                        Console.Write(" ");
+
+                    Console.SetCursorPosition(0, currentLineCursor);
+
+                    Console.SetCursorPosition(0, cursorTop);
+                    Console.WriteLine("Loading.");
+                    Console.SetCursorPosition(0, cursorTop);
+                    Thread.Sleep(1000);
+                    Console.WriteLine("Loading..");
+                    Console.SetCursorPosition(0, cursorTop);
+                    Thread.Sleep(1000);
+                    Console.WriteLine("Loading...");
+                    Console.SetCursorPosition(0, cursorTop);
+                    Thread.Sleep(1000);
+                }
+            });
+
+            DoComplexLogic();
+            _nowLoading = false;
+            Console.WriteLine($"Welcome to the game {character.Name}!");
+        }
+
+        private static void FluentWay()
+        {
+            var character = new Character();
+
+            FluentConsole
+                .Initialize()
+                .WriteLine("Welcome to character creation:")
+                .Write("Name:")
+                .ReadLine((name, _) => character.Name = name)
+                .WriteLine("Are you a [color:Blue](J)edi[/color] or a [color:Red](S)ith[/color]?")
+                .ReadKeyWithOptions()
+                    .If(ConsoleKey.J, (_, fluentConsole) =>
+                        {
+                            character.Alignment = Alignment.Jedi;
+                            fluentConsole.WithBackgroundColor(ConsoleColor.Blue);
+                        })
+                    .If(ConsoleKey.S, (_, fluentConsole) =>
+                        {
+                            character.Alignment = Alignment.Sith;
+                            fluentConsole.WithBackgroundColor(ConsoleColor.Red);
+                        })
+                    .ElseRetry(retryText: "Invalid option, please try again.")
+                .DoWithLoading(() => DoComplexLogic(), loadingText: "Loading")
+                .WriteLine($"Welcome to the game {character.Name}!");
+        }
+
+        private static void DoComplexLogic()
         {
             Thread.Sleep(3000);
         }
+    }
 
-        public class Dummy
-        {
-            public string Name { get; set; }
-        }
+    public enum Alignment
+    {
+        Jedi,
+        Sith
+    }
+
+    public class Character
+    {
+        public string Name { get; set; }
+        public Alignment Alignment { get; set; }
     }
 }
