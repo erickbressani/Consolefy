@@ -6,6 +6,6 @@ TODO
 
 ## Demo
 
-![Screenshot](ConsoleDemo.png)
+![Screenshot](Screenshot/ConsoleDemo.png)
 
 ### Default Way 
