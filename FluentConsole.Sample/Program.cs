@@ -9,6 +9,11 @@ namespace FluentConsoleApplication.Sample
     {
         private static void Main(string[] args)
         {
+            FluentConsole
+                .Initialize()
+                .NewEmptyLine(repeat: 3)
+                .WriteLine("a");
+
             FluentWay();
             return;
             while (true)

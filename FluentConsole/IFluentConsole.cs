@@ -16,7 +16,7 @@ namespace FluentConsoleApplication
 
         IFluentConsole WriteLine(string value);
 
-        IFluentConsole NewEmptyLine(int repeat = 1);
+        IFluentConsole NewEmptyLine(int repeat = 0);
 
         IFluentConsole ReadLine(Action<string, IFluentConsole> @do);
 

@@ -30,9 +30,9 @@ namespace FluentConsoleApplication
             return this;
         }
 
-        public IFluentConsole NewEmptyLine(int repeat = 1)
+        public IFluentConsole NewEmptyLine(int repeat = 0)
         {
-            for (int index = 0; index < repeat; index++)
+            for (int index = 0; index <= repeat; index++)
                 Console.WriteLine();
 
             return this;
