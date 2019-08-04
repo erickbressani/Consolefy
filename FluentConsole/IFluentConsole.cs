@@ -6,13 +6,13 @@ namespace FluentConsoleApplication
     {
         IFluentConsole Write(object value);
 
-        IFluentConsole WriteFormat(string value, params string[] args);
+        IFluentConsole WriteFormat(string value, params object[] args);
 
         IFluentConsole Write(string value);
 
         IFluentConsole WriteLine(object value);
 
-        IFluentConsole WriteLineFormat(string value, params string[] args);
+        IFluentConsole WriteLineFormat(string value, params object[] args);
 
         IFluentConsole WriteLine(string value);
 

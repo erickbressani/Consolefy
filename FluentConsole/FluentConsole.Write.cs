@@ -9,7 +9,7 @@ namespace FluentConsoleApplication
         public IFluentConsole Write(object value)
             => Write(value.ToString());
 
-        public IFluentConsole WriteFormat(string value, params string[] args)
+        public IFluentConsole WriteFormat(string value, params object[] args)
             => Write(string.Format(value, args));
 
         public IFluentConsole Write(string value)
@@ -21,7 +21,7 @@ namespace FluentConsoleApplication
         public IFluentConsole WriteLine(object value)
             => WriteLine(value.ToString());
 
-        public IFluentConsole WriteLineFormat(string value, params string[] args)
+        public IFluentConsole WriteLineFormat(string value, params object[] args)
             => WriteLine(string.Format(value, args));
 
         public IFluentConsole WriteLine(string value)
