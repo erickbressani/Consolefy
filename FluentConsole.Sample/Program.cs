@@ -9,13 +9,6 @@ namespace FluentConsoleApplication.Sample
     {
         private static void Main(string[] args)
         {
-            FluentConsole
-                .Initialize()
-                .ReadLineAsIntWithOptions()
-                    .If("1", (_, fluentConsole) => fluentConsole.WriteLine("a"))
-                    .If("2", (_, fluentConsole) => fluentConsole.WriteLine("b"))
-                    .Else((_, fluentConsole) => fluentConsole.WriteLine("c"));
-
             while (true)
             {
                 FluentConsole
@@ -25,8 +18,7 @@ namespace FluentConsoleApplication.Sample
                     .ReadKeyLineWithOptions()
                     .If(ConsoleKey.D1, (_, __) => DefaultWay())
                     .If(ConsoleKey.D2, (_, __) => FluentWay())
-                    .ElseRetry()
-                    .Clear();
+                    .ElseRetry();
             }
         }
 
@@ -37,6 +29,21 @@ namespace FluentConsoleApplication.Sample
             Console.WriteLine("Welcome to character creation:");
             Console.Write("Name:");
             character.Name = Console.ReadLine();
+
+            Console.Write("Age:");
+
+            while (true)
+            {
+                if (int.TryParse(Console.ReadLine(), out var age))
+                {
+                    character.Age = age;
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("Invalid number, please retry");
+                }
+            }
 
             while (true)
             {
@@ -114,6 +121,8 @@ namespace FluentConsoleApplication.Sample
                 .WriteLine("Welcome to character creation:")
                 .Write("Name:")
                 .ReadLine((name, _) => character.Name = name)
+                .Write("Age:")
+                .ReadLineAsInt((age, _) => character.Age = age, retryText: "Invalid number, please retry")
                 .WriteLine("Are you a [color:Blue](J)edi[/color] or a [color:Red](S)ith[/color]?")
                 .ReadKeyWithOptions()
                     .If(ConsoleKey.J, (_, fluentConsole) =>
@@ -146,6 +155,7 @@ namespace FluentConsoleApplication.Sample
     public class Character
     {
         public string Name { get; set; }
+        public int Age { get; set; }
         public Alignment Alignment { get; set; }
     }
 }
