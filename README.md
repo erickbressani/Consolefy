@@ -8,7 +8,7 @@ TODO
 
 Simple console application:
 
-![Screenshot](Screenshot/ConsoleDemo.png)
+![Screenshot](Screenshots/ConsoleDemo.png)
 
 ### Default Way 
 
@@ -19,6 +19,21 @@ Simple console application:
   Console.WriteLine("Welcome to character creation:");
   Console.Write("Name:");
   character.Name = Console.ReadLine();
+  
+  Console.Write("Age:");
+
+  while (true)
+  {
+      if (int.TryParse(Console.ReadLine(), out var age))
+      {
+          character.Age = age;
+          break;
+      }
+      else
+      {
+          Console.WriteLine("Invalid number, please retry");
+      }
+  }
 
   while (true)
   {
@@ -99,6 +114,8 @@ Simple console application:
         .WriteLine("Welcome to character creation:")
         .Write("Name:")
         .ReadLine((name, _) => character.Name = name)
+        .Write("Age:")
+        .ReadLineAsInt((age, _) => character.Age = age, retryText: "Invalid number, please retry")
         .WriteLine("Are you a [color:Blue](J)edi[/color] or a [color:Red](S)ith[/color]?")
         .ReadKeyWithOptions()
             .If(ConsoleKey.J, (_, fluentConsole) =>
