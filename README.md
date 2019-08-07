@@ -1,5 +1,5 @@
 # FluentConsole
-Easily build your Console Applications.
+Build your Console Applications faster.
 
 ## Nuget
 TODO
