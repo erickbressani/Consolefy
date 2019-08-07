@@ -20,11 +20,31 @@ namespace FluentConsoleApplication
 
         IFluentConsole ReadLine(Action<string, IFluentConsole> @do);
 
+        IFluentConsole ReadLineAsInt(Action<int, IFluentConsole> @do, string retryText = "");
+
+        IFluentConsole ReadLineAsLong(Action<long, IFluentConsole> @do, string retryText = "");
+
+        IFluentConsole ReadLineAsFloat(Action<float, IFluentConsole> @do, string retryText = "");
+
+        IFluentConsole ReadLineAsDecimal(Action<decimal, IFluentConsole> @do, string retryText = "");
+
+        IFluentConsole ReadLineAsGuid(Action<Guid, IFluentConsole> @do, string retryText = "");
+
         IFluentConsole ReadKey(Action<ConsoleKey, IFluentConsole> @do);
 
         IFluentConsole ReadKeyLine(Action<ConsoleKey, IFluentConsole> @do);
 
         IReadTextResultWrapper ReadLineWithOptions();
+
+        IReadTextResultWrapper ReadLineAsIntWithOptions(string retryText = "");
+
+        IReadTextResultWrapper ReadLineAsLongWithOptions(string retryText = "");
+
+        IReadTextResultWrapper ReadLineAsFloatWithOptions(string retryText = "");
+
+        IReadTextResultWrapper ReadLineAsDecimalWithOptions(string retryText = "");
+
+        IReadTextResultWrapper ReadLineAsGuidWithOptions(string retryText = "");
 
         IReadKeyResultWrapper ReadKeyWithOptions();
 

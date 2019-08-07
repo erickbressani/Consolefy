@@ -7,6 +7,7 @@ namespace FluentConsoleApplication
 {
     public sealed partial class FluentConsole : IFluentConsole
     {
+        private ConsoleColor? _currentBackground;
         private bool _nowLoading;
 
         private FluentConsole() { }
@@ -44,12 +45,38 @@ namespace FluentConsoleApplication
             return this;
         }
 
+        public IFluentConsole WithBackgroundColor(ConsoleColor consoleColor)
+        {
+            _currentBackground = consoleColor;
+            return this;
+        }
+
+        public IFluentConsole ResetColor()
+        {
+            Console.ResetColor();
+            return this;
+        }
+
+        public IFluentConsole Do(Action action)
+        {
+            action();
+            return this;
+        }
+
+        public IFluentConsole DoWithLoading(Action action, string loadingText = "Loading", int tickMilliseconds = 1000)
+        {
+            Loading(loadingText, tickMilliseconds);
+            action();
+            StopLoading();
+            return this;
+        }
+
         private void Loading(string loadingText = "Loading", int tickMilliseconds = 1000)
         {
             _nowLoading = true;
             NewEmptyLine(repeat: 2);
 
-            int GetCursorTop() 
+            int GetCursorTop()
                 => (Console.CursorTop - 1) < 0 ? 0 : Console.CursorTop - 1;
 
             Task.Run(() =>
@@ -80,20 +107,6 @@ namespace FluentConsoleApplication
         {
             _nowLoading = false;
             Console.SetCursorPosition(0, Console.CursorTop + 1);
-        }
-
-        public IFluentConsole Do(Action action)
-        {
-            action();
-            return this;
-        }
-
-        public IFluentConsole DoWithLoading(Action action, string loadingText = "Loading", int tickMilliseconds = 1000)
-        {
-            Loading(loadingText, tickMilliseconds);
-            action();
-            StopLoading();
-            return this;
         }
 
         private void ClearCurrentConsoleLine()

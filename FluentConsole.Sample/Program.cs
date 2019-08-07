@@ -9,17 +9,24 @@ namespace FluentConsoleApplication.Sample
     {
         private static void Main(string[] args)
         {
+            FluentConsole
+                .Initialize()
+                .ReadLineAsIntWithOptions()
+                    .If("1", (_, fluentConsole) => fluentConsole.WriteLine("a"))
+                    .If("2", (_, fluentConsole) => fluentConsole.WriteLine("b"))
+                    .Else((_, fluentConsole) => fluentConsole.WriteLine("c"));
+
             while (true)
             {
                 FluentConsole
-                .Initialize()
-                .WriteLine("1. Default Wayt")
-                .WriteLine("2. Fluent")
-                .ReadKeyLineWithOptions()
-                .If(ConsoleKey.D1, (_, __) => DefaultWay())
-                .If(ConsoleKey.D2, (_, __) => FluentWay())
-                .ElseRetry()
-                .Clear();
+                    .Initialize()
+                    .WriteLine("1. Default Wayt")
+                    .WriteLine("2. Fluent")
+                    .ReadKeyLineWithOptions()
+                    .If(ConsoleKey.D1, (_, __) => DefaultWay())
+                    .If(ConsoleKey.D2, (_, __) => FluentWay())
+                    .ElseRetry()
+                    .Clear();
             }
         }
 
