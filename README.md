@@ -113,10 +113,10 @@ Simple console application:
         .Initialize()
         .WriteLine("Welcome to character creation:")
         .Write("Name:")
-        .ReadLine((name, _) => character.Name = name)
+        .ReadLine((name, _) => character.Name = name) //First parameter is the input, second parameter is the FluentConsole itself.
         .Write("Age:")
-        .ReadLineAsInt((age, _) => character.Age = age, retryText: "Invalid number, please retry")
-        .WriteLine("Are you a [color:Blue](J)edi[/color] or a [color:Red](S)ith[/color]?")
+        .ReadLineAsInt((age, _) => character.Age = age, retryText: "Invalid number, please retry") //Retries until valid input.
+        .WriteLine("Are you a [color:Blue](J)edi[/color] or a [color:Red](S)ith[/color]?") //Color tags making the decoration easier.
         .ReadKeyWithOptions()
             .If(ConsoleKey.J, (_, fluentConsole) =>
                 {
@@ -128,8 +128,8 @@ Simple console application:
                     character.Alignment = Alignment.Sith;
                     fluentConsole.WithBackgroundColor(ConsoleColor.Red);
                 })
-            .ElseRetry(retryText: "Invalid option, please try again.")
-        .DoWithLoading(() => DoComplexLogic(), loadingText: "Loading")
+            .ElseRetry(retryText: "Invalid option, please try again.") //Retries until the key pressed is "J" or "S".
+        .DoWithLoading(() => DoComplexLogic(), loadingText: "Loading") //Writes an animated "Loading..." until execution is complete.
         .WriteLine($"Welcome to the game {character.Name}!");
 }
 ```
