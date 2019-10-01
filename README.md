@@ -8,7 +8,7 @@ TODO
 
 Simple console application:
 
-![Screenshot](Screenshots/ConsoleDemo.png)
+![Screenshot](docs/Screenshots/ConsoleDemo.png)
 
 ### Default Way 
 
