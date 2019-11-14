@@ -1,8 +1,46 @@
-# FluentConsole
-Build your Console Applications faster.
+# Consolefy
+Build your Console Applications fluently faster.
 
 ## Nuget
-TODO
+> Install-Package Consolefy -Version 1.0.0
+
+## Main Features:
+
+  - Parse options with retry;
+  
+  ```csharp
+  Consolefy
+    .Initialize()
+    .WriteLine("Insert an int: ")
+    .ReadLineAsInt((value, consolefy) =>
+        consolefy.WriteLine($"Value: {value}"), 
+        retryText: "Value is not an int, please try again.");
+  ```
+  
+  - Easy to change text and background color:
+  
+  ```csharp
+  Consolefy
+    .Initialize()
+    .WithBackgroundColor(ConsoleColor.Green)
+    .WriteLine("This is [color:Blue]Blue[/color] and this is [color:Red]Red[/color]?");
+  ```
+  
+  - Bind Read actions with options and retries 
+  
+  ```csharp
+   Consolefy
+    .Initialize()
+    .WriteLine("Choose an option:")
+    .WriteLine("1. Cook")
+    .WriteLine("2. Serve")
+    .ReadKeyLineWithOptions()
+    .If(ConsoleKey.D1, (value, consolefy) => Cook())
+    .If(ConsoleKey.D2, (value, consolefy) => Serve())
+    .ElseRetry();
+  ```
+  
+ - And much more to discover!
 
 ## Demo
 
@@ -103,7 +141,7 @@ Simple console application:
 }
 ```
 
-### Fluent Way using FluentConsole
+### Fluent Way using Consolefy
 
 ```csharp
 {
