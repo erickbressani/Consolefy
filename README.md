@@ -1,7 +1,10 @@
 # Consolefy
 Build your Console Applications fluently faster.
 
-### Main Features:
+## Nuget
+> Install-Package Consolefy -Version 1.0.0
+
+## Main Features:
 
   - Parse options with retry;
   
@@ -38,9 +41,6 @@ Build your Console Applications fluently faster.
   ```
   
  - And much more to discover!
-
-## Nuget
-TODO
 
 ## Demo
 
