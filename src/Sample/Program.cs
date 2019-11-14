@@ -18,6 +18,12 @@ namespace Consolefy.Sample
                     .If(ConsoleKey.D1, (_, __) => DefaultWay())
                     .If(ConsoleKey.D2, (_, __) => FluentWay())
                     .ElseRetry();
+
+
+                Consolefy
+                    .Initialize()
+                    .WithBackgroundColor(ConsoleColor.Green)
+                    .WriteLine("This is [color:Blue]Blue[/color] and this is [color:Red]Red[/color]?");
             }
         }
 
@@ -141,7 +147,7 @@ namespace Consolefy.Sample
 
         private static void DoComplexLogic()
         {
-            Thread.Sleep(3000);
+            Task.Delay(3000).Wait();
         }
     }
 
