@@ -37,7 +37,7 @@ Build your Console Applications fluently faster.
     .ElseRetry();
   ```
   
-And much more!
+ - And much more to discover!
 
 ## Nuget
 TODO
