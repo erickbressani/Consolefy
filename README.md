@@ -141,7 +141,7 @@ Simple console application:
 }
 ```
 
-### Fluent Way using FluentConsole
+### Fluent Way using Consolefy
 
 ```csharp
 {
