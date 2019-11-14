@@ -1,13 +1,13 @@
 ﻿using System;
 
-namespace FluentConsoleApplication
+namespace Consolefy
 {
     internal class PossibleReadKeyOutcome
     {
         internal ConsoleKey ExpectedConsoleKey { get; }
-        internal Action<ConsoleKey, IFluentConsole> Do { get; }
+        internal Action<ConsoleKey, IConsolefy> Do { get; }
 
-        internal PossibleReadKeyOutcome(ConsoleKey expectedConsoleKey, Action<ConsoleKey, IFluentConsole> @do)
+        internal PossibleReadKeyOutcome(ConsoleKey expectedConsoleKey, Action<ConsoleKey, IConsolefy> @do)
         {
             ExpectedConsoleKey = expectedConsoleKey;
             Do = @do;

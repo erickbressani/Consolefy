@@ -2,35 +2,35 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace FluentConsoleApplication
+namespace Consolefy
 {
-    public sealed partial class FluentConsole : IFluentConsole
+    public sealed partial class Consolefy : IConsolefy
     {
-        public IFluentConsole Write(object value)
+        public IConsolefy Write(object value)
             => Write(value.ToString());
 
-        public IFluentConsole WriteFormat(string value, params object[] args)
+        public IConsolefy WriteFormat(string value, params object[] args)
             => Write(string.Format(value, args));
 
-        public IFluentConsole Write(string value)
+        public IConsolefy Write(string value)
         {
             WriteText(value);
             return this;
         }
 
-        public IFluentConsole WriteLine(object value)
+        public IConsolefy WriteLine(object value)
             => WriteLine(value.ToString());
 
-        public IFluentConsole WriteLineFormat(string value, params object[] args)
+        public IConsolefy WriteLineFormat(string value, params object[] args)
             => WriteLine(string.Format(value, args));
 
-        public IFluentConsole WriteLine(string value)
+        public IConsolefy WriteLine(string value)
         {
             WriteText(value, newLine: true);
             return this;
         }
 
-        public IFluentConsole NewEmptyLine(int repeat = 0)
+        public IConsolefy NewEmptyLine(int repeat = 0)
         {
             for (int index = 0; index <= repeat; index++)
                 Console.WriteLine();

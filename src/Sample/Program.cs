@@ -1,17 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace FluentConsoleApplication.Sample
+namespace Consolefy.Sample
 {
-    class Program
+    public static class Program
     {
-        private static void Main(string[] args)
+        private static void Main()
         {
             while (true)
             {
-                FluentConsole
+                Consolefy
                     .Initialize()
                     .WriteLine("1. Default Wayt")
                     .WriteLine("2. Fluent")
@@ -116,7 +115,7 @@ namespace FluentConsoleApplication.Sample
         {
             var character = new Character();
 
-            FluentConsole
+            Consolefy
                 .Initialize()
                 .WriteLine("Welcome to character creation:")
                 .Write("Name:")

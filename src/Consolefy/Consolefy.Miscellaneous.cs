@@ -3,67 +3,67 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace FluentConsoleApplication
+namespace Consolefy
 {
-    public sealed partial class FluentConsole : IFluentConsole
+    public sealed partial class Consolefy : IConsolefy
     {
         private ConsoleColor? _currentBackground;
         private bool _nowLoading;
 
-        private FluentConsole() { }
+        private Consolefy() { }
 
-        public static IFluentConsole Initialize()
-             => new FluentConsole();
+        public static IConsolefy Initialize()
+             => new Consolefy();
 
-        public IFluentConsole Clear()
+        public IConsolefy Clear()
         {
             Console.Clear();
             return this;
         }
 
-        public IFluentConsole Beep()
+        public IConsolefy Beep()
         {
             Console.Beep();
             return this;
         }
 
-        public IFluentConsole Beep(int frequency, int duration)
+        public IConsolefy Beep(int frequency, int duration)
         {
             Console.Beep(frequency, duration);
             return this;
         }
 
-        public IFluentConsole SetWindowPosition(int left, int top)
+        public IConsolefy SetWindowPosition(int left, int top)
         {
             Console.SetWindowPosition(left, top);
             return this;
         }
 
-        public IFluentConsole SetWindowSize(int width, int height)
+        public IConsolefy SetWindowSize(int width, int height)
         {
             Console.SetWindowSize(width, height);
             return this;
         }
 
-        public IFluentConsole WithBackgroundColor(ConsoleColor consoleColor)
+        public IConsolefy WithBackgroundColor(ConsoleColor consoleColor)
         {
             _currentBackground = consoleColor;
             return this;
         }
 
-        public IFluentConsole ResetColor()
+        public IConsolefy ResetColor()
         {
             Console.ResetColor();
             return this;
         }
 
-        public IFluentConsole Do(Action action)
+        public IConsolefy Do(Action action)
         {
             action();
             return this;
         }
 
-        public IFluentConsole DoWithLoading(Action action, string loadingText = "Loading", int tickMilliseconds = 1000)
+        public IConsolefy DoWithLoading(Action action, string loadingText = "Loading", int tickMilliseconds = 1000)
         {
             Loading(loadingText, tickMilliseconds);
             action();

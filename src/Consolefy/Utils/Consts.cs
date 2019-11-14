@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace FluentConsoleApplication
+namespace Consolefy
 {
     internal static class Consts
     {

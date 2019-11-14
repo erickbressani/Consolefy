@@ -1,23 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace FluentConsoleApplication
+namespace Consolefy
 {
     internal class ReadKeyResultWrapper : IReadKeyResultWrapper
     {
         private readonly List<PossibleReadKeyOutcome> _possibleOutcomes;
         private readonly ReadKeyResult _readResult;
-        private readonly FluentConsole _fluentConsole;
+        private readonly Consolefy _fluentConsole;
         private bool _alreadyFoundMatch;
 
-        internal ReadKeyResultWrapper(ReadKeyResult readResult, FluentConsole fluentConsole)
+        internal ReadKeyResultWrapper(ReadKeyResult readResult, Consolefy fluentConsole)
         {
             _possibleOutcomes = new List<PossibleReadKeyOutcome>();
             _readResult = readResult;
             _fluentConsole = fluentConsole;
         }
 
-        public IReadKeyResultWrapper If(ConsoleKey result, Action<ConsoleKey, IFluentConsole> @do)
+        public IReadKeyResultWrapper If(ConsoleKey result, Action<ConsoleKey, IConsolefy> @do)
         {
             if (_readResult.ConsoleKey == result)
             {
@@ -30,7 +30,7 @@ namespace FluentConsoleApplication
             return this;
         }
 
-        public IFluentConsole Else(Action<ConsoleKey, IFluentConsole> @do)
+        public IConsolefy Else(Action<ConsoleKey, IConsolefy> @do)
         {
             if (!_alreadyFoundMatch)
                 @do(_readResult.ConsoleKey, _fluentConsole);
@@ -38,7 +38,7 @@ namespace FluentConsoleApplication
             return _fluentConsole;
         }
 
-        public IFluentConsole ElseRetry(string retryText = "")
+        public IConsolefy ElseRetry(string retryText = "")
         {
             while (!_alreadyFoundMatch)
             {

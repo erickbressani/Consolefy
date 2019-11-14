@@ -1,17 +1,17 @@
 ﻿using System;
 
-namespace FluentConsoleApplication
+namespace Consolefy
 {
-    public sealed partial class FluentConsole : IFluentConsole
+    public sealed partial class Consolefy : IConsolefy
     {
-        public IFluentConsole ReadLine(Action<string, IFluentConsole> @do)
+        public IConsolefy ReadLine(Action<string, IConsolefy> @do)
         {
             string result = Console.ReadLine();
             @do(result, this);
             return this;
         }
 
-        public IFluentConsole ReadLineAsInt(Action<int, IFluentConsole> @do, string retryText = "")
+        public IConsolefy ReadLineAsInt(Action<int, IConsolefy> @do, string retryText = "")
         {
             ReadLineAsParsed<int>(@do, retryText, (value) =>
             {
@@ -24,7 +24,7 @@ namespace FluentConsoleApplication
             return this;
         }
 
-        public IFluentConsole ReadLineAsLong(Action<long, IFluentConsole> @do, string retryText = "")
+        public IConsolefy ReadLineAsLong(Action<long, IConsolefy> @do, string retryText = "")
         {
             ReadLineAsParsed<long>(@do, retryText, (value) =>
             {
@@ -37,7 +37,7 @@ namespace FluentConsoleApplication
             return this;
         }
 
-        public IFluentConsole ReadLineAsFloat(Action<float, IFluentConsole> @do, string retryText = "")
+        public IConsolefy ReadLineAsFloat(Action<float, IConsolefy> @do, string retryText = "")
         {
             ReadLineAsParsed<float>(@do, retryText, (value) =>
             {
@@ -50,7 +50,7 @@ namespace FluentConsoleApplication
             return this;
         }
 
-        public IFluentConsole ReadLineAsDecimal(Action<decimal, IFluentConsole> @do, string retryText = "")
+        public IConsolefy ReadLineAsDecimal(Action<decimal, IConsolefy> @do, string retryText = "")
         {
             ReadLineAsParsed<decimal>(@do, retryText, (value) =>
             {
@@ -63,7 +63,7 @@ namespace FluentConsoleApplication
             return this;
         }
 
-        public IFluentConsole ReadLineAsGuid(Action<Guid, IFluentConsole> @do, string retryText = "")
+        public IConsolefy ReadLineAsGuid(Action<Guid, IConsolefy> @do, string retryText = "")
         {
             ReadLineAsParsed<Guid>(@do, retryText, (value) =>
             {
@@ -76,14 +76,14 @@ namespace FluentConsoleApplication
             return this;
         }
 
-        public IFluentConsole ReadKey(Action<ConsoleKey, IFluentConsole> @do)
+        public IConsolefy ReadKey(Action<ConsoleKey, IConsolefy> @do)
         {
             ConsoleKey result = Console.ReadKey().Key;
             @do(result, this);
             return this;
         }
 
-        public IFluentConsole ReadKeyLine(Action<ConsoleKey, IFluentConsole> @do)
+        public IConsolefy ReadKeyLine(Action<ConsoleKey, IConsolefy> @do)
         {
             ReadKey(@do);
             NewEmptyLine();
@@ -166,7 +166,7 @@ namespace FluentConsoleApplication
             return readKeyResultWrapper;
         }
 
-        private void ReadLineAsParsed<TValueType>(Action<TValueType, IFluentConsole> @do, string retryText, Func<string, object> parseMethod)
+        private void ReadLineAsParsed<TValueType>(Action<TValueType, IConsolefy> @do, string retryText, Func<string, object> parseMethod)
         {
             while (true)
             {

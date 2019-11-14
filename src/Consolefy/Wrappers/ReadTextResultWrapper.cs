@@ -1,23 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace FluentConsoleApplication
+namespace Consolefy
 {
     internal class ReadTextResultWrapper : IReadTextResultWrapper
     {
         private readonly List<PossibleReadTextOutcome> _possibleOutcomes;
         private readonly ReadTextResult _readResult;
-        private readonly FluentConsole _fluentConsole;
+        private readonly Consolefy _fluentConsole;
         private bool _alreadyFoundMatch;
 
-        internal ReadTextResultWrapper(ReadTextResult readResult, FluentConsole fluentConsole)
+        internal ReadTextResultWrapper(ReadTextResult readResult, Consolefy fluentConsole)
         {
             _possibleOutcomes = new List<PossibleReadTextOutcome>();
             _readResult = readResult;
             _fluentConsole = fluentConsole;
         }
 
-        public IReadTextResultWrapper If(string result, Action<string, IFluentConsole> @do, StringComparison stringComparison = StringComparison.InvariantCultureIgnoreCase)
+        public IReadTextResultWrapper If(string result, Action<string, IConsolefy> @do, StringComparison stringComparison = StringComparison.InvariantCultureIgnoreCase)
         {
             if (result.Equals(_readResult.Text, stringComparison))
             {
@@ -30,7 +30,7 @@ namespace FluentConsoleApplication
             return this;
         }
 
-        public IFluentConsole Else(Action<string, IFluentConsole> @do)
+        public IConsolefy Else(Action<string, IConsolefy> @do)
         {
             if (!_alreadyFoundMatch)
                 @do(_readResult.Text, _fluentConsole);
@@ -38,7 +38,7 @@ namespace FluentConsoleApplication
             return _fluentConsole;
         }
 
-        public IFluentConsole ElseRetry(string retryText = "")
+        public IConsolefy ElseRetry(string retryText = "")
         {
             while (!_alreadyFoundMatch)
             {

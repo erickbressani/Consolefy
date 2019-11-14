@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Description>Build your Console Applications fluently faster.
+</Description>
+    <PackageTags>Console;Fluent;Consolefy;</PackageTags>
+    <Authors>Erick Bressani</Authors>
+    <Company></Company>
+    <Product>Consolefy</Product>
+    <PackageId>Consolefy</PackageId>
+    <RepositoryUrl></RepositoryUrl>
+    <PackageProjectUrl>https://github.com/erickbressani/Consolefy</PackageProjectUrl>
+  </PropertyGroup>
+
+</Project>

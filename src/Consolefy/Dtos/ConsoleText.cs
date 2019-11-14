@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace FluentConsoleApplication
+namespace Consolefy
 {
     internal class ConsoleText
     {

@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\FluentConsole\FluentConsole.csproj" />
+    <ProjectReference Include="..\Consolefy\Consolefy.csproj" />
   </ItemGroup>
 
 </Project>
