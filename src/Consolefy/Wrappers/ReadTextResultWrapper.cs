@@ -30,6 +30,32 @@ namespace Consolefy
             return this;
         }
 
+        public IReadTextResultWrapper If(string result, Action<string> @do, StringComparison stringComparison = StringComparison.InvariantCultureIgnoreCase)
+        {
+            if (result.Equals(_readResult.Text, stringComparison))
+            {
+                @do(_readResult.Text);
+                _alreadyFoundMatch = true;
+            }
+
+            _possibleOutcomes.Add(new PossibleReadTextOutcome(result, (_, __) => @do(_readResult.Text), stringComparison));
+
+            return this;
+        }
+
+        public IReadTextResultWrapper If(string result, Action @do, StringComparison stringComparison = StringComparison.InvariantCultureIgnoreCase)
+        {
+            if (result.Equals(_readResult.Text, stringComparison))
+            {
+                @do();
+                _alreadyFoundMatch = true;
+            }
+
+            _possibleOutcomes.Add(new PossibleReadTextOutcome(result, (_, __) => @do(), stringComparison));
+
+            return this;
+        }
+
         public IConsolefy Else(Action<string, IConsolefy> @do)
         {
             if (!_alreadyFoundMatch)

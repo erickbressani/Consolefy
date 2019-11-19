@@ -15,15 +15,9 @@ namespace Consolefy.Sample
                     .WriteLine("1. Default Wayt")
                     .WriteLine("2. Fluent")
                     .ReadKeyLineWithOptions()
-                    .If(ConsoleKey.D1, (_, __) => DefaultWay())
-                    .If(ConsoleKey.D2, (_, __) => FluentWay())
+                    .If(ConsoleKey.D1, DefaultWay)
+                    .If(ConsoleKey.D2, FluentWay)
                     .ElseRetry();
-
-
-                Consolefy
-                    .Initialize()
-                    .WithBackgroundColor(ConsoleColor.Green)
-                    .WriteLine("This is [color:Blue]Blue[/color] and this is [color:Red]Red[/color]?");
             }
         }
 

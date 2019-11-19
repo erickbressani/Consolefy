@@ -30,6 +30,45 @@ namespace Consolefy
             return this;
         }
 
+        public IReadKeyResultWrapper If(ConsoleKey result, Action<ConsoleKey> @do)
+        {
+            if (_readResult.ConsoleKey == result)
+            {
+                @do(_readResult.ConsoleKey);
+                _alreadyFoundMatch = true;
+            }
+
+            _possibleOutcomes.Add(new PossibleReadKeyOutcome(result, (_, __) => @do(result)));
+
+            return this;
+        }
+
+        public IReadKeyResultWrapper If(ConsoleKey result, Action<IConsolefy> @do)
+        {
+            if (_readResult.ConsoleKey == result)
+            {
+                @do(_fluentConsole);
+                _alreadyFoundMatch = true;
+            }
+
+            _possibleOutcomes.Add(new PossibleReadKeyOutcome(result, (_, __) => @do(_fluentConsole)));
+
+            return this;
+        }
+
+        public IReadKeyResultWrapper If(ConsoleKey result, Action @do)
+        {
+            if (_readResult.ConsoleKey == result)
+            {
+                @do();
+                _alreadyFoundMatch = true;
+            }
+
+            _possibleOutcomes.Add(new PossibleReadKeyOutcome(result, (_, __) => @do()));
+
+            return this;
+        }
+
         public IConsolefy Else(Action<ConsoleKey, IConsolefy> @do)
         {
             if (!_alreadyFoundMatch)
