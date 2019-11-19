@@ -12,6 +12,8 @@
     <PackageId>Consolefy</PackageId>
     <RepositoryUrl></RepositoryUrl>
     <PackageProjectUrl>https://github.com/erickbressani/Consolefy</PackageProjectUrl>
+    <Version>1.1.0</Version>
+    <PackageReleaseNotes>+ Added more options to If's methods</PackageReleaseNotes>
   </PropertyGroup>
 
 </Project>
