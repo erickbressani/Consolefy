@@ -2,7 +2,7 @@
 Build your Console Applications fluently faster.
 
 ## Nuget
-> Install-Package Consolefy -Version 1.0.0
+> Install-Package Consolefy -Version 1.1.0
 
 ## Main Features:
 
@@ -17,7 +17,7 @@ Build your Console Applications fluently faster.
         retryText: "Value is not an int, please try again.");
   ```
   
-  - Easy to change text and background color:
+  - Change text and background color easily:
   
   ```csharp
   Consolefy
@@ -35,8 +35,8 @@ Build your Console Applications fluently faster.
     .WriteLine("1. Cook")
     .WriteLine("2. Serve")
     .ReadKeyLineWithOptions()
-    .If(ConsoleKey.D1, (value, consolefy) => Cook())
-    .If(ConsoleKey.D2, (value, consolefy) => Serve())
+    .If(ConsoleKey.D1, () => Cook())
+    .If(ConsoleKey.D2, () => Serve())
     .ElseRetry();
   ```
   
