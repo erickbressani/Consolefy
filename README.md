@@ -35,8 +35,8 @@ Build your Console Applications fluently faster.
     .WriteLine("1. Cook")
     .WriteLine("2. Serve")
     .ReadKeyLineWithOptions()
-    .If(ConsoleKey.D1, (value, consolefy) => Cook())
-    .If(ConsoleKey.D2, (value, consolefy) => Serve())
+    .If(ConsoleKey.D1, () => Cook())
+    .If(ConsoleKey.D2, () => Serve())
     .ElseRetry();
   ```
   
