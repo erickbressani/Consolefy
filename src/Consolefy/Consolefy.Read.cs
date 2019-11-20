@@ -76,6 +76,25 @@ namespace Consolefy
             return this;
         }
 
+        private void ReadLineAsParsed<TValueType>(Action<TValueType, IConsolefy> @do, string retryText, Func<string, object> parseMethod)
+        {
+            while (true)
+            {
+                string result = Console.ReadLine();
+                object maybeParsed = parseMethod(result);
+
+                if (maybeParsed is TValueType parsed)
+                {
+                    @do(parsed, this);
+                    break;
+                }
+                else if (!string.IsNullOrEmpty(retryText))
+                {
+                    WriteText(retryText, newLine: true);
+                }
+            }
+        }
+
         public IConsolefy ReadKey(Action<ConsoleKey, IConsolefy> @do)
         {
             ConsoleKey result = Console.ReadKey().Key;
@@ -164,25 +183,6 @@ namespace Consolefy
             IReadKeyResultWrapper readKeyResultWrapper = ReadKeyWithOptions();
             NewEmptyLine();
             return readKeyResultWrapper;
-        }
-
-        private void ReadLineAsParsed<TValueType>(Action<TValueType, IConsolefy> @do, string retryText, Func<string, object> parseMethod)
-        {
-            while (true)
-            {
-                string result = Console.ReadLine();
-                object maybeParsed = parseMethod(result);
-
-                if (maybeParsed is TValueType parsed)
-                {
-                    @do(parsed, this);
-                    break;
-                }
-                else if (!string.IsNullOrEmpty(retryText))
-                {
-                    WriteText(retryText, newLine: true);
-                }
-            }
         }
     }
 }
