@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace Consolefy
@@ -97,7 +96,7 @@ namespace Consolefy
 
                         Console.SetCursorPosition(0, cursorTop);
                         WriteText(loading.ToString());
-                        Thread.Sleep(tickMilliseconds);
+                        Task.Delay(tickMilliseconds).Wait();
                     }
                 }
             });
