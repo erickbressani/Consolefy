@@ -17,7 +17,7 @@ Build your Console Applications fluently faster.
         retryText: "Value is not an int, please try again.");
   ```
   
-  - Easy to change text and background color:
+  - Change text and background color easily:
   
   ```csharp
   Consolefy
