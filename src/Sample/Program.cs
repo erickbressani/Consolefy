@@ -125,9 +125,9 @@ namespace Consolefy.Sample
                 .Initialize()
                 .WriteLine("Welcome to character creation:")
                 .Write("Name:")
-                .ReadLine((name, _) => character.Name = name)
+                .ReadLine((name) => character.Name = name)
                 .Write("Age:")
-                .ReadLineAsInt((age, _) => character.Age = age, retryText: "Invalid number, please retry")
+                .ReadLineAsInt((age) => character.Age = age, retryText: "Invalid number, please retry")
                 .WriteLine("Are you a [color:Blue](J)edi[/color] or a [color:Red](S)ith[/color]?")
                 .ReadKeyWithOptions()
                     .If(ConsoleKey.J, (_, fluentConsole) =>

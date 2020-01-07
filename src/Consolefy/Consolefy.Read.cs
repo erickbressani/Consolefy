@@ -13,7 +13,7 @@ namespace Consolefy
 
         public IConsolefy ReadLineAsInt(Action<int, IConsolefy> @do, string retryText = "")
         {
-            ReadLineAsParsed<int>(@do, retryText, (value) =>
+            ReadLineAsParsed(@do, retryText, (value) =>
             {
                 if (int.TryParse(value, out var parsed))
                     return parsed;
@@ -26,7 +26,7 @@ namespace Consolefy
 
         public IConsolefy ReadLineAsLong(Action<long, IConsolefy> @do, string retryText = "")
         {
-            ReadLineAsParsed<long>(@do, retryText, (value) =>
+            ReadLineAsParsed(@do, retryText, (value) =>
             {
                 if (long.TryParse(value, out var parsed))
                     return parsed;
@@ -39,7 +39,7 @@ namespace Consolefy
 
         public IConsolefy ReadLineAsFloat(Action<float, IConsolefy> @do, string retryText = "")
         {
-            ReadLineAsParsed<float>(@do, retryText, (value) =>
+            ReadLineAsParsed(@do, retryText, (value) =>
             {
                 if (float.TryParse(value, out var parsed))
                     return parsed;
@@ -52,7 +52,7 @@ namespace Consolefy
 
         public IConsolefy ReadLineAsDecimal(Action<decimal, IConsolefy> @do, string retryText = "")
         {
-            ReadLineAsParsed<decimal>(@do, retryText, (value) =>
+            ReadLineAsParsed(@do, retryText, (value) =>
             {
                 if (decimal.TryParse(value, out var parsed))
                     return parsed;
@@ -65,7 +65,79 @@ namespace Consolefy
 
         public IConsolefy ReadLineAsGuid(Action<Guid, IConsolefy> @do, string retryText = "")
         {
-            ReadLineAsParsed<Guid>(@do, retryText, (value) =>
+            ReadLineAsParsed(@do, retryText, (value) =>
+            {
+                if (Guid.TryParse(value, out var parsed))
+                    return parsed;
+
+                return null;
+            });
+
+            return this;
+        }
+
+        public IConsolefy ReadLine(Action<string> @do)
+        {
+            string result = Console.ReadLine();
+            @do(result);
+            return this;
+        }
+
+        public IConsolefy ReadLineAsInt(Action<int> @do, string retryText = "")
+        {
+            ReadLineAsParsed(@do, retryText, (value) =>
+            {
+                if (int.TryParse(value, out var parsed))
+                    return parsed;
+
+                return null;
+            });
+
+            return this;
+        }
+
+        public IConsolefy ReadLineAsLong(Action<long> @do, string retryText = "")
+        {
+            ReadLineAsParsed(@do, retryText, (value) =>
+            {
+                if (long.TryParse(value, out var parsed))
+                    return parsed;
+
+                return null;
+            });
+
+            return this;
+        }
+
+        public IConsolefy ReadLineAsFloat(Action<float> @do, string retryText = "")
+        {
+            ReadLineAsParsed(@do, retryText, (value) =>
+            {
+                if (float.TryParse(value, out var parsed))
+                    return parsed;
+
+                return null;
+            });
+
+            return this;
+        }
+
+        public IConsolefy ReadLineAsDecimal(Action<decimal> @do, string retryText = "")
+        {
+            ReadLineAsParsed(@do, retryText, (value) =>
+            {
+                if (decimal.TryParse(value, out var parsed))
+                    return parsed;
+
+                return null;
+            });
+
+            return this;
+        }
+
+        public IConsolefy ReadLineAsGuid(Action<Guid> @do, string retryText = "")
+        {
+            ReadLineAsParsed(@do, retryText, (value) =>
             {
                 if (Guid.TryParse(value, out var parsed))
                     return parsed;
@@ -95,6 +167,25 @@ namespace Consolefy
             }
         }
 
+        private void ReadLineAsParsed<TValueType>(Action<TValueType> @do, string retryText, Func<string, object> parseMethod)
+        {
+            while (true)
+            {
+                string result = Console.ReadLine();
+                object maybeParsed = parseMethod(result);
+
+                if (maybeParsed is TValueType parsed)
+                {
+                    @do(parsed);
+                    break;
+                }
+                else if (!string.IsNullOrEmpty(retryText))
+                {
+                    WriteText(retryText, newLine: true);
+                }
+            }
+        }
+
         public IConsolefy ReadKey(Action<ConsoleKey, IConsolefy> @do)
         {
             ConsoleKey result = Console.ReadKey().Key;
@@ -103,6 +194,20 @@ namespace Consolefy
         }
 
         public IConsolefy ReadKeyLine(Action<ConsoleKey, IConsolefy> @do)
+        {
+            ReadKey(@do);
+            NewEmptyLine();
+            return this;
+        }
+
+        public IConsolefy ReadKey(Action<ConsoleKey> @do)
+        {
+            ConsoleKey result = Console.ReadKey().Key;
+            @do(result);
+            return this;
+        }
+
+        public IConsolefy ReadKeyLine(Action<ConsoleKey> @do)
         {
             ReadKey(@do);
             NewEmptyLine();

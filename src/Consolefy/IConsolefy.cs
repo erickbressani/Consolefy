@@ -34,6 +34,22 @@ namespace Consolefy
 
         IConsolefy ReadKeyLine(Action<ConsoleKey, IConsolefy> @do);
 
+        IConsolefy ReadLine(Action<string> @do);
+
+        IConsolefy ReadLineAsInt(Action<int> @do, string retryText = "");
+
+        IConsolefy ReadLineAsLong(Action<long> @do, string retryText = "");
+
+        IConsolefy ReadLineAsFloat(Action<float> @do, string retryText = "");
+
+        IConsolefy ReadLineAsDecimal(Action<decimal> @do, string retryText = "");
+
+        IConsolefy ReadLineAsGuid(Action<Guid> @do, string retryText = "");
+
+        IConsolefy ReadKey(Action<ConsoleKey> @do);
+
+        IConsolefy ReadKeyLine(Action<ConsoleKey> @do);
+
         IReadTextResultWrapper ReadLineWithOptions();
 
         IReadTextResultWrapper ReadLineAsIntWithOptions(string retryText = "");
