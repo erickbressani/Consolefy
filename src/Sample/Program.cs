@@ -12,7 +12,10 @@ namespace Consolefy.Sample
             {
                 Consolefy
                     .Initialize()
-                    .SetupQuittingBehavior((consolefy) => consolefy.WriteLine("Quitting"))
+                    .SetupQuittingBehavior((consolefy) =>
+                        {
+                            consolefy.WriteLine("Quitting");
+                        })
                     .WriteLine("1. Default Wayt")
                     .WriteLine("2. Fluent")
                     .WriteLine("Q. Quit")

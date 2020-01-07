@@ -77,6 +77,22 @@ namespace Consolefy
             return _fluentConsole;
         }
 
+        public IConsolefy Else(Action<ConsoleKey> @do)
+        {
+            if (!_alreadyFoundMatch)
+                @do(_readResult.ConsoleKey);
+
+            return _fluentConsole;
+        }
+
+        public IConsolefy Else(Action @do)
+        {
+            if (!_alreadyFoundMatch)
+                @do();
+
+            return _fluentConsole;
+        }
+
         public IConsolefy ElseRetry(string retryText = "")
         {
             while (!_alreadyFoundMatch)

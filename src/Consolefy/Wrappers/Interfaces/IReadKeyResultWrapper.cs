@@ -12,6 +12,10 @@ namespace Consolefy
 
         IConsolefy Else(Action<ConsoleKey, IConsolefy> @do);
 
+        IConsolefy Else(Action<ConsoleKey> @do);
+
+        IConsolefy Else(Action @do);
+
         IConsolefy ElseRetry(string retryText = "");
     }
 }
