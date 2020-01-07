@@ -185,9 +185,9 @@ Simple console application:
         .Initialize()
         .WriteLine("Welcome to character creation:")
         .Write("Name:")
-        .ReadLine((name, _) => character.Name = name) //First parameter is the input, second parameter is the FluentConsole itself.
+        .ReadLine((name) => character.Name = name) //First parameter is the input, second parameter is the FluentConsole itself.
         .Write("Age:")
-        .ReadLineAsInt((age, _) => character.Age = age, retryText: "Invalid number, please retry") //Retries until valid input.
+        .ReadLineAsInt((age) => character.Age = age, retryText: "Invalid number, please retry") //Retries until valid input.
         .WriteLine("Are you a [color:Blue](J)edi[/color] or a [color:Red](S)ith[/color]?") //Color tags making the decoration easier.
         .ReadKeyWithOptions()
             .If(ConsoleKey.J, (_, fluentConsole) =>
