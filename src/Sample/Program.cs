@@ -12,11 +12,14 @@ namespace Consolefy.Sample
             {
                 Consolefy
                     .Initialize()
+                    .SetupQuittingBehavior((consolefy) => consolefy.WriteLine("Quitting"))
                     .WriteLine("1. Default Wayt")
                     .WriteLine("2. Fluent")
+                    .WriteLine("Q. Quit")
                     .ReadKeyLineWithOptions()
                     .If(ConsoleKey.D1, DefaultWay)
                     .If(ConsoleKey.D2, FluentWay)
+                    .If(ConsoleKey.Q, (_, consolefy) => consolefy.Quit())
                     .ElseRetry();
             }
         }

@@ -60,12 +60,16 @@ namespace Consolefy
 
         IConsolefy Clear();
 
-        IConsolefy Beep();
-
-        IConsolefy Beep(int frequency, int duration);
-
         IConsolefy Do(Action action);
 
         IConsolefy DoWithLoading(Action action, string loadingText = "Loading", int tickMilliseconds = 1000);
+
+        IConsolefy WaitAnyKeyFromUser();
+
+        IConsolefy SetupQuittingBehavior(Action behavior);
+
+        IConsolefy SetupQuittingBehavior(Action<IConsolefy> behavior);
+
+        IConsolefy Quit();
     }
 }

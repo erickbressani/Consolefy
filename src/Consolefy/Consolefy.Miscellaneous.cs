@@ -8,6 +8,8 @@ namespace Consolefy
     {
         private ConsoleColor? _currentBackground;
         private bool _nowLoading;
+        private Action _quittingBehavior;
+        private Action<IConsolefy> _quittingBehaviorWithConsolefy;
 
         private Consolefy() { }
 
@@ -17,18 +19,6 @@ namespace Consolefy
         public IConsolefy Clear()
         {
             Console.Clear();
-            return this;
-        }
-
-        public IConsolefy Beep()
-        {
-            Console.Beep();
-            return this;
-        }
-
-        public IConsolefy Beep(int frequency, int duration)
-        {
-            Console.Beep(frequency, duration);
             return this;
         }
 
@@ -67,6 +57,32 @@ namespace Consolefy
             Loading(loadingText, tickMilliseconds);
             action();
             StopLoading();
+            return this;
+        }
+
+        public IConsolefy SetupQuittingBehavior(Action behavior)
+        {
+            _quittingBehavior = behavior;
+            return this;
+        }
+
+        public IConsolefy SetupQuittingBehavior(Action<IConsolefy> behavior)
+        {
+            _quittingBehaviorWithConsolefy = behavior;
+            return this;
+        }
+
+        public IConsolefy Quit()
+        {
+            _quittingBehavior?.Invoke();
+            _quittingBehaviorWithConsolefy?.Invoke(this);
+            Environment.Exit(0);
+            return this;
+        }
+
+        public IConsolefy WaitAnyKeyFromUser()
+        {
+            Console.ReadLine();
             return this;
         }
 
