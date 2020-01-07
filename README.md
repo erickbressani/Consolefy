@@ -2,7 +2,7 @@
 Build your Console Applications fluently faster.
 
 ## Nuget
-> Install-Package Consolefy -Version 1.2.0
+> Install-Package Consolefy -Version 1.4.0
 
 ## Main Features:
 
