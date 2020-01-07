@@ -38,6 +38,18 @@ Build your Console Applications fluently faster.
     .If(ConsoleKey.D1, () => Cook())
     .If(ConsoleKey.D2, () => Serve())
     .ElseRetry();
+    
+    //or
+    
+     Consolefy
+      .Initialize()
+      .WriteLine("Choose an option:")
+      .WriteLine("Cook")
+      .WriteLine("Serve")
+      .ReadLineWithOptions()
+      .If("Cook", () => Cook())
+      .If("Serve", () => Serve())
+      .ElseRetry();
   ```
   
   - Setup Quitting Behavior 
