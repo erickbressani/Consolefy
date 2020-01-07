@@ -58,7 +58,7 @@ Build your Console Applications fluently faster.
     .ReadKeyLineWithOptions()
     .If(ConsoleKey.D1, () => Cook())
     .If(ConsoleKey.D2, () => Serve())
-    .If(ConsoleKey.Q, (_, consolefy) => consolefy.Quit()) // Quit() method calls the action on the on the Setup and then closes the Console Application
+    .If(ConsoleKey.Q, (_, consolefy) => consolefy.Quit()) // Quit() method calls the action on the on the Quitting Setup and then closes the Console Application
     .ElseRetry();
   ```
   
