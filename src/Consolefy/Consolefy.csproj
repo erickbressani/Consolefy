@@ -11,7 +11,7 @@
     <PackageId>Consolefy</PackageId>
     <RepositoryUrl></RepositoryUrl>
     <PackageProjectUrl>https://github.com/erickbressani/Consolefy</PackageProjectUrl>
-    <Version>1.2.0</Version>
+    <Version>1.3.0</Version>
     <PackageReleaseNotes>+ Added more options to If's methods
 + Added Quit method
 + Added WaitAnyKeyFromUser method</PackageReleaseNotes>
