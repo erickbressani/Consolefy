@@ -2,7 +2,7 @@
 Build your Console Applications fluently faster.
 
 ## Nuget
-> Install-Package Consolefy -Version 1.1.0
+> Install-Package Consolefy -Version 1.2.0
 
 ## Main Features:
 
@@ -37,6 +37,28 @@ Build your Console Applications fluently faster.
     .ReadKeyLineWithOptions()
     .If(ConsoleKey.D1, () => Cook())
     .If(ConsoleKey.D2, () => Serve())
+    .ElseRetry();
+  ```
+  
+  - Setup Quitting Behavior 
+  
+  ```csharp
+   Consolefy
+    .Initialize()
+    .SetupQuittingBehavior((consolefy) =>
+      {
+          DoSomething1();
+          DoSomething2();
+          consolefy.WriteLine("Quitting");
+      })
+    .WriteLine("Choose an option:")
+    .WriteLine("1. Cook")
+    .WriteLine("2. Serve")
+    .WriteLine("Q. Quit")
+    .ReadKeyLineWithOptions()
+    .If(ConsoleKey.D1, () => Cook())
+    .If(ConsoleKey.D2, () => Serve())
+    .If(ConsoleKey.Q, (_, consolefy) => consolefy.Quit()) // Quit() method calls the action on the on the Setup and then closes the Console Application
     .ElseRetry();
   ```
   
